@@ -47,6 +47,6 @@ export default class ProductList implements OnInit {
 
   onImageError(event: Event) {
     const img = event.target as HTMLImageElement;
-    img.src = 'assets/placeholder-image.png';
+    img.src = 'public/assets/placeholder-image.png';
   }
 }

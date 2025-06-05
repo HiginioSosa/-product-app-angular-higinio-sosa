@@ -1,59 +1,240 @@
-# ProductAppAngularHiginioSosa
+# Product App System - Angular 20
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.1.
+Una aplicación de gestión de productos construida con Angular 20, utilizando signals.
 
-## Development server
+## Características
 
-To start a local development server, run:
+- **Listado de productos** con tabla responsiva
+- **Creación de productos** con formulario validado
+- **Edición de productos** con datos pre-cargados
+- **Eliminación de productos** con confirmación
+- **Estado de carga** con indicadores visuales
+- **Manejo de errores** robusto
+- **Arquitectura moderna** con signals
 
+## Tecnologías Utilizadas
+
+- **Angular 20** - Framework principal
+- **Signals** - Para gestión de estado reactivo
+- **Standalone Components** - Componentes independientes
+- **Reactive Forms** - Formularios reactivos con validación
+- **RxJS** - Programación reactiva
+- **Fake Store API** - API REST pública
+
+## Requisitos Previos
+
+- Node.js (v20 o superior)
+- npm (v10 o superior)
+- Angular CLI (v20)
+
+## Instalación
+
+1. Clonar el repositorio:
+```bash
+git clone https://github.com/HiginioSosa/product-app-angular-higinio-sosa.git
+cd product-app-angular-higinio-sosa
+```
+
+2. Instalar dependencias:
+```bash
+npm install
+```
+
+3. Ejecutar la aplicación:
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+4. Abrir en el navegador:
+```
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Estructura del Proyecto
 
-```bash
-ng generate --help
+```
+src/
+├── app/
+│   ├── components/
+│   │   ├── product-list/
+│   │   │   └── product-list.component.ts
+│   │   └── product-form/
+│   │       └── product-form.component.ts
+│   ├── models/
+│   │   └── product.model.ts
+│   ├── services/
+│   │   └── product.service.ts
+│   ├── app.component.ts
+│   ├── app.routes.ts
+│   └── main.ts
+├── assets/
+└── styles.scss
 ```
 
-## Building
+## API Utilizada
 
-To build the project run:
+**Fake Store API**: https://fakestoreapi.com
 
+### Endpoints principales:
+- `GET /products` - Obtener todos los productos
+- `GET /products/{id}` - Obtener un producto específico
+- `POST /products` - Crear un nuevo producto
+- `PUT /products/{id}` - Actualizar un producto
+- `DELETE /products/{id}` - Eliminar un producto
+
+*Nota: Las operaciones POST, PUT y DELETE no persisten cambios reales en el servidor, pero la API responde como si lo hiciera.*
+
+## Funcionalidades Implementadas
+
+### Listado de Productos
+- Tabla con imagen, nombre, categoría, precio y acciones
+- Indicador de carga mientras se obtienen los datos
+- Manejo de errores con opción de reintentar
+- Estado vacío cuando no hay productos
+
+### Formulario de Productos
+- Validación en tiempo real de todos los campos
+- Preview de imagen al ingresar URL válida
+- Modo de creación y edición
+- Mensajes de éxito/error
+- Navegación automática al guardar
+
+### Eliminación de Productos
+- Modal de confirmación antes de eliminar
+- Actualización inmediata de la lista
+- Manejo de errores
+
+## Arquitectura y Mejores Prácticas
+
+### Signals y Estado Reactivo
+- Uso de signals para gestión de estado local
+- Computed signals para valores derivados
+- Estado inmutable con métodos update()
+
+### Separación de Responsabilidades
+- **Componentes**: Solo lógica de presentación
+- **Servicios**: Lógica de negocio y comunicación HTTP
+- **Modelos**: Interfaces y tipos TypeScript
+
+### Manejo de Errores
+- Interceptación de errores HTTP
+- Mensajes de error descriptivos
+- Estados de error en la UI
+
+## Capturas de Pantalla
+
+### Lista de Productos
+![Product List](screenshots/product-list.png)
+
+### Formulario de Producto
+![Product Form](screenshots/product-form.png)
+
+### Modal de Confirmación
+![Delete Confirmation](screenshots/delete-modal.png)
+
+## Despliegue
+
+### GitHub Pages
 ```bash
-ng build
+ng build --base-href /product-app-angular-[tu-nombre]/
+npx angular-cli-ghpages --dir=dist/product-app-angular-[tu-nombre]/browser
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Licencia
 
-## Running unit tests
+Este proyecto está bajo la licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Autor
 
-```bash
-ng test
+**José Higinio Sosa Vázquez**
+
+- GitHub: [@HiginioSosa](https://github.com/HiginioSosa)
+
+---
+
+# Decisiones Técnicas - Product App System
+
+## 1. Angular 20 con Signals
+
+### Decisión
+Utilizar la versión más reciente de Angular (v20) con el nuevo sistema de signals para la gestión de estado.
+
+### Justificación
+- **Performance**: Los signals ofrecen mejor rendimiento que los observables tradicionales para estado local
+- **Simplicidad**: Sintaxis más simple y directa para manejar estado reactivo
+- **Futuro**: Angular está moviendo su ecosistema hacia signals como el estándar
+
+## 2. Standalone Components
+
+### Decisión
+Usar componentes standalone sin módulos NgModule.
+
+### Justificación
+- **Simplicidad**: Menos boilerplate
+- **Tree-shaking**: Mejor optimización del bundle
+- **Lazy Loading**: Más granular y eficiente
+
+## 3. Arquitectura de Estado Local
+
+### Decisión
+Mantener el estado en un servicio singleton con signals en lugar de usar NgRx o Akita.
+
+### Justificación
+- **Simplicidad**: Para una aplicación CRUD simple, no se necesita la complejidad de un store global
+- **Performance**: Los signals son suficientes para este caso de uso
+- **Mantenibilidad**: Menos código y conceptos para entender
+
+### Estructura
+```
+ProductService
+├── Estado (signals privados)
+├── Selectores (signals computados públicos)
+└── Acciones (métodos que actualizan el estado)
 ```
 
-## Running end-to-end tests
+## 4. Manejo de Errores
 
-For end-to-end (e2e) testing, run:
+### Decisión
+Implementar manejo de errores a nivel de servicio con estados visuales en componentes.
 
-```bash
-ng e2e
-```
+### Justificación
+- **UX**: Los usuarios siempre saben qué está pasando
+- **Debugging**: Errores logeados para desarrollo
+- **Recuperación**: Opciones para reintentar operaciones fallidas
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 5. Formularios Reactivos
 
-## Additional Resources
+### Decisión
+Usar Reactive Forms en lugar de Template-driven Forms.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Justificación
+- **Type Safety**: Mejor tipado con TypeScript
+- **Validación**: Validadores más robustos y reutilizables
+
+## 6. Lazy Loading de Rutas
+
+### Decisión
+Implementar lazy loading para todos los componentes de ruta.
+
+### Justificación
+- **Performance**: Carga inicial más rápida
+- **Escalabilidad**: Preparado para crecer
+- **Code Splitting**: Bundles más pequeños
+
+## 7. HTTP Client Directo
+
+### Decisión
+Usar HttpClient directamente sin interceptores complejos.
+
+### Justificación
+- **Simplicidad**: La API no requiere autenticación
+- **Claridad**: El flujo de datos es más transparente
+- **Suficiente**: Para los requisitos actuales es adecuado
+
+## Conclusiones
+
+Estas decisiones técnicas buscan equilibrar:
+- **Modernidad**: Usar las últimas características de Angular
+- **Simplicidad**: No sobre-engineerear la solución
+- **Performance**: Optimizar donde importa
+- **Mantenibilidad**: Código claro y bien estructurado

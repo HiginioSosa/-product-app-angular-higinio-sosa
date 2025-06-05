@@ -1,4 +1,5 @@
 <div class="form-container">
+  <!-- Título dinámico basado en modo -->
   <h2>{{ isEditMode() ? 'Edit Product' : 'Add New Product' }}</h2>
 
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
@@ -10,6 +11,7 @@
              formControlName="title"
              class="form-control"
              [class.error]="productForm.get('title')?.invalid && productForm.get('title')?.touched">
+      <!-- Validación solo se muestra después de tocar el campo (touched) -->
       @if (productForm.get('title')?.invalid && productForm.get('title')?.touched) {
       <span class="error-message">Product name is required</span>
       }
@@ -24,6 +26,7 @@
              formControlName="price"
              class="form-control"
              [class.error]="productForm.get('price')?.invalid && productForm.get('price')?.touched">
+      <!-- Mensajes específicos por tipo de error -->
       @if (productForm.get('price')?.hasError('required') && productForm.get('price')?.touched) {
       <span class="error-message">Price is required</span>
       }
@@ -39,6 +42,7 @@
               formControlName="category"
               class="form-control"
               [class.error]="productForm.get('category')?.invalid && productForm.get('category')?.touched">
+        <!-- Opción vacía para forzar selección explícita -->
         <option value="">Select a category</option>
         <option value="electronics">Electronics</option>
         <option value="jewelery">Jewelry</option>
@@ -65,6 +69,7 @@
       <span class="error-message">Please enter a valid URL</span>
       }
 
+      <!-- Preview solo se muestra si URL es válida -->
       @if (productForm.get('image')?.value && productForm.get('image')?.valid) {
       <div class="image-preview">
         <img [src]="productForm.get('image')?.value"
@@ -89,6 +94,7 @@
     </div>
 
     <div class="form-actions">
+      <!-- type="button" previene submit accidental -->
       <button
               type="button"
               class="btn btn-secondary"
@@ -96,6 +102,7 @@
               [disabled]="isSubmitting()">
         Cancel
       </button>
+      <!-- Botón deshabilitado si formulario inválido o enviándose -->
       <button
               type="submit"
               class="btn btn-primary"
@@ -110,6 +117,7 @@
     </div>
   </form>
 
+  <!-- Mensajes de feedback posicionados fuera del form para evitar resubmit -->
   @if (errorMessage()) {
   <div class="alert alert-error">
     {{ errorMessage() }}

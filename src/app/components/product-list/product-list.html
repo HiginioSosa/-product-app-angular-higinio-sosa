@@ -6,6 +6,8 @@
     </button>
   </div>
 
+  <!-- Estados mutuamente excluyentes: solo uno se muestra a la vez -->
+
   <!-- Loading State -->
   @if (productService.isLoading()) {
   <div class="loading">
@@ -38,6 +40,7 @@
         </tr>
       </thead>
       <tbody>
+        <!-- track by id optimiza el renderizado al actualizar la lista -->
         @for (product of productService.products(); track product.id) {
         <tr>
           <td>
@@ -78,9 +81,10 @@
   </div>
   }
 
-  <!-- Delete Confirmation Modal -->
+  <!-- Modal con backdrop clickeable para cerrar -->
   @if (productToDelete()) {
   <div class="modal-backdrop" (click)="cancelDelete()">
+    <!-- stopPropagation evita que clicks dentro del modal lo cierren -->
     <div class="modal" (click)="$event.stopPropagation()">
       <h3>Confirm Delete</h3>
       <p>Are you sure you want to delete "{{ productToDelete()?.title }}"?</p>

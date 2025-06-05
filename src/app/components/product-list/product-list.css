@@ -1,3 +1,4 @@
+/* Container principal con diseño card */
 .product-list-container {
   background: white;
   border-radius: 8px;
@@ -16,14 +17,16 @@
   margin: 0;
 }
 
+/* Estados de carga */
 .loading {
   text-align: center;
   padding: 3rem;
 }
 
+/* Spinner con técnica de border para crear animación circular */
 .spinner {
   border: 3px solid #f3f3f3;
-  border-top: 3px solid #1976d2;
+  border-top: 3px solid #1976d2; /* Solo el borde superior tiene color para crear efecto */
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -42,13 +45,14 @@
   color: #d32f2f;
 }
 
+/* Tabla responsive con scroll horizontal en móviles */
 .table-container {
   overflow-x: auto;
 }
 
 .products-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: collapse; /* Elimina espacios entre celdas */
 }
 
 .products-table th,
@@ -63,10 +67,11 @@
   font-weight: 600;
 }
 
+/* Imágenes contenidas sin deformar */
 .product-image {
   width: 50px;
   height: 50px;
-  object-fit: contain;
+  object-fit: contain; /* Mantiene proporciones originales */
 }
 
 .actions {
@@ -74,6 +79,7 @@
   gap: 0.5rem;
 }
 
+/* Sistema de botones reutilizable */
 .btn {
   padding: 0.5rem 1rem;
   border: none;
@@ -83,6 +89,7 @@
   transition: all 0.2s;
 }
 
+/* Colores siguiendo Material Design de Angular */
 .btn-primary {
   background-color: #1976d2;
   color: white;
@@ -106,6 +113,7 @@
   background-color: #c62828;
 }
 
+/* Modificador de tamaño */
 .btn-sm {
   padding: 0.25rem 0.75rem;
   font-size: 0.75rem;
@@ -116,6 +124,7 @@
   padding: 3rem;
 }
 
+/* Modal con backdrop de pantalla completa */
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -126,7 +135,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 1000; /* Asegura que esté sobre todo el contenido */
 }
 
 .modal {
@@ -134,7 +143,7 @@
   padding: 2rem;
   border-radius: 8px;
   max-width: 400px;
-  width: 90%;
+  width: 90%; /* Responsive: nunca más ancho que la pantalla */
 }
 
 .modal h3 {

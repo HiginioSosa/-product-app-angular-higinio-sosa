@@ -1,3 +1,4 @@
+/* Contenedor centrado con ancho máximo para legibilidad */
 .form-container {
   max-width: 600px;
   margin: 0 auto;
@@ -31,6 +32,7 @@ label {
   transition: border-color 0.2s;
 }
 
+/* Focus state con doble indicador visual: border + shadow sutil */
 .form-control:focus {
   outline: none;
   border-color: #1976d2;
@@ -41,6 +43,7 @@ label {
   border-color: #d32f2f;
 }
 
+/* Solo resize vertical para mejor control del layout */
 textarea.form-control {
   resize: vertical;
 }
@@ -73,6 +76,7 @@ textarea.form-control {
   margin-top: 2rem;
 }
 
+/* Botón con flex para alinear spinner inline */
 .btn {
   padding: 0.75rem 1.5rem;
   border: none;
@@ -95,6 +99,7 @@ textarea.form-control {
   color: white;
 }
 
+/* :not(:disabled) previene hover en estado deshabilitado */
 .btn-primary:hover:not(:disabled) {
   background-color: #1565c0;
 }
@@ -108,6 +113,7 @@ textarea.form-control {
   background-color: #616161;
 }
 
+/* Spinner inline pequeño para botones */
 .spinner-small {
   width: 14px;
   height: 14px;
@@ -128,14 +134,15 @@ textarea.form-control {
   margin-top: 1rem;
 }
 
+/* Sistema de alertas con colores semánticos de Material Design */
 .alert-error {
-  background-color: #ffebee;
-  color: #c62828;
-  border: 1px solid #ef5350;
+  background-color: #ffebee; /* Red 50 */
+  color: #c62828; /* Red 800 */
+  border: 1px solid #ef5350; /* Red 400 */
 }
 
 .alert-success {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  border: 1px solid #66bb6a;
+  background-color: #e8f5e9; /* Green 50 */
+  color: #2e7d32; /* Green 800 */
+  border: 1px solid #66bb6a; /* Green 400 */
 }

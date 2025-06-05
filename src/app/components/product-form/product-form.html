@@ -1,1 +1,124 @@
-<p>product-form works!</p>
+<div class="form-container">
+  <h2>{{ isEditMode() ? 'Editar Producto' : 'Agregar Nuevo Producto' }}</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="title">Nombre del producto *</label>
+      <input
+             id="title"
+             type="text"
+             formControlName="title"
+             class="form-control"
+             [class.error]="productForm.get('title')?.invalid && productForm.get('title')?.touched">
+      @if (productForm.get('title')?.invalid && productForm.get('title')?.touched) {
+      <span class="error-message">El nombre del producto es obligatorio</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="price">Precio *</label>
+      <input
+             id="price"
+             type="number"
+             step="0.01"
+             formControlName="price"
+             class="form-control"
+             [class.error]="productForm.get('price')?.invalid && productForm.get('price')?.touched">
+      @if (productForm.get('price')?.hasError('required') && productForm.get('price')?.touched) {
+      <span class="error-message">El precio es obligatorio</span>
+      }
+      @if (productForm.get('price')?.hasError('min') && productForm.get('price')?.touched) {
+      <span class="error-message">El precio no puede ser menor a 0</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="category">Categoria *</label>
+      <select
+              id="category"
+              formControlName="category"
+              class="form-control"
+              [class.error]="productForm.get('category')?.invalid && productForm.get('category')?.touched">
+        <option value="">Seleccionar una categoria</option>
+        <option value="electronics">Electrónica</option>
+        <option value="jewelery">Joyas</option>
+        <option value="men's clothing">Ropa de Hombre</option>
+        <option value="women's clothing">Ropa de Mujer</option>
+      </select>
+      @if (productForm.get('category')?.invalid && productForm.get('category')?.touched) {
+      <span class="error-message">LOa categoria es obligatoria</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="image">URL de la Imagen *</label>
+      <input
+             id="image"
+             type="url"
+             formControlName="image"
+             class="form-control"
+             [class.error]="productForm.get('image')?.invalid && productForm.get('image')?.touched">
+      @if (productForm.get('image')?.hasError('required') && productForm.get('image')?.touched) {
+      <span class="error-message">La URL de la imagen es obligatoria</span>
+      }
+      @if (productForm.get('image')?.hasError('pattern') && productForm.get('image')?.touched) {
+      <span class="error-message">Por favor, introduzca una URL válida</span>
+      }
+
+      @if (productForm.get('image')?.value && productForm.get('image')?.valid) {
+      <div class="image-preview">
+        <img [src]="productForm.get('image')?.value"
+             alt="Product preview"
+             (error)="onImageError($event)">
+      </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descripción *</label>
+      <textarea
+                id="description"
+                formControlName="description"
+                class="form-control"
+                rows="4"
+                [class.error]="productForm.get('description')?.invalid && productForm.get('description')?.touched">
+      </textarea>
+      @if (productForm.get('description')?.invalid && productForm.get('description')?.touched) {
+      <span class="error-message">La descripción es obligatoria</span>
+      }
+    </div>
+
+    <div class="form-actions">
+      <button
+              type="button"
+              class="btn btn-secondary"
+              (click)="onCancel()"
+              [disabled]="isSubmitting()">
+        Cancelar
+      </button>
+      <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="productForm.invalid || isSubmitting()">
+        @if (isSubmitting()) {
+        <span class="spinner-small"></span>
+        Guardando...
+        } @else {
+        {{ isEditMode() ? 'Actualizar' : 'Crear' }} Producto
+        }
+      </button>
+    </div>
+  </form>
+
+  @if (errorMessage()) {
+  <div class="alert alert-error">
+    {{ errorMessage() }}
+  </div>
+  }
+
+  @if (successMessage()) {
+  <div class="alert alert-success">
+    {{ successMessage() }}
+  </div>
+  }
+</div>

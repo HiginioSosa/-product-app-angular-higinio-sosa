@@ -12,6 +12,16 @@ export const routes: Routes = [
       import('./components/product-list/product-list'),
   },
   {
+    path: 'products/new',
+    loadComponent: () =>
+      import('./components/product-form/product-form')
+  },
+  {
+    path: 'products/:id/edit',
+    loadComponent: () =>
+      import('./components/product-form/product-form')
+  },
+  {
     path: '**',
     redirectTo: '/products'
   }

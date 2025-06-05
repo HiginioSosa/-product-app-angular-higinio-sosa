@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy:gh-pages": "ng build --configuration production --base-href=/product-app-angular-higinio-sosa/ && npx angular-cli-ghpages --dir=dist/product-app-angular-higinio-sosa/browser"
   },
   "private": true,
   "dependencies": {
